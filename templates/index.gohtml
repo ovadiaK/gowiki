@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+</head>
+<body>
+<article>
+    <h1>Welcome to the wiki!</h1>
+    <p>please choose a topic:</p>
+    <ul>
+        {{range .}}
+            <li>
+                <a href="/view/{{.}}">{{.}}</a></li>
+        {{end}}
+    </ul>
+    <form action="/new/">
+        <input type="text" name="title">
+        <input type="submit" value="New">
+    </form>
+</article>
+</body>
+</html>

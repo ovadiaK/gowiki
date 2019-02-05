@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Editing {{.Title}}</title>
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+</head>
+<body>
+<article>
+    <h1>Editing {{.Title}}</h1>
+    <form action="/save/{{.Title}}" method="post">
+        <div><textarea aria-label="???" title="textarea to enter descriptive text" name="body" id="tbody" cols="80" rows="20">{{ printf "%s" .Body}}</textarea></div>
+        <div><input type="submit" value="Save"></div>
+    </form>
+</article>
+</body>
+</html>
