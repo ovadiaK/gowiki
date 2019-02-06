@@ -6,17 +6,14 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"os"
 	"path/filepath"
 	"regexp"
 )
 
-var pwd string
 var templates *template.Template
 var validPath = regexp.MustCompile("^/(edit|save|view)/([a-zA-Z0-9]+)$")
 
 func main() {
-	pwd, _ = os.Getwd()
 	templates = template.Must(template.ParseGlob("templates/*.gohtml"))
 
 	http.HandleFunc("/index/", welcomeHandler)
@@ -46,7 +43,7 @@ func makeHandler(fn func(http.ResponseWriter, *http.Request, string)) http.Handl
 	}
 }
 func pagePath(title string) string {
-	return filepath.Join(pwd, "texts", title+".txt")
+	return filepath.Join("texts", title+".txt")
 }
 func (p *Page) save() error {
 	return ioutil.WriteFile(pagePath(p.Title), p.Body, 0600)
@@ -63,9 +60,9 @@ func renderTemplate(w http.ResponseWriter, tmpl string, p *Page) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
-func welcomeHandler(w http.ResponseWriter, r *http.Request) {
+func welcomeHandler(w http.ResponseWriter, _ *http.Request) {
 	var titles []string
-	infos, err := ioutil.ReadDir(filepath.Join(pwd, "texts"))
+	infos, err := ioutil.ReadDir(filepath.Join("texts"))
 	fmt.Print("welcome")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -88,7 +85,7 @@ func viewHandler(w http.ResponseWriter, r *http.Request, title string) {
 	}
 	renderTemplate(w, "view", p)
 }
-func editHandler(w http.ResponseWriter, r *http.Request, title string) {
+func editHandler(w http.ResponseWriter, _ *http.Request, title string) {
 	p, err := loadPage(title)
 	if err != nil {
 		p = &Page{Title: title}
