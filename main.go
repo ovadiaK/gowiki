@@ -17,7 +17,6 @@ var validPath = regexp.MustCompile("^/(edit|save|view)/([a-zA-Z0-9]+)$")
 
 func main() {
 	pwd, _ = os.Getwd()
-	templates = template.Must(template.ParseFiles(tmplPath("edit"), tmplPath("view"), tmplPath("index")))
 	templates = template.Must(template.ParseGlob("templates/*.gohtml"))
 
 	http.HandleFunc("/index/", welcomeHandler)
@@ -48,9 +47,6 @@ func makeHandler(fn func(http.ResponseWriter, *http.Request, string)) http.Handl
 }
 func pagePath(title string) string {
 	return filepath.Join(pwd, "texts", title+".txt")
-}
-func tmplPath(tmpl string) string {
-	return filepath.Join(pwd, "templates", tmpl+".gohtml")
 }
 func (p *Page) save() error {
 	return ioutil.WriteFile(pagePath(p.Title), p.Body, 0600)
