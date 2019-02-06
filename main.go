@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"html/template"
 	"io/ioutil"
 	"log"
@@ -63,7 +62,6 @@ func renderTemplate(w http.ResponseWriter, tmpl string, p *Page) {
 func welcomeHandler(w http.ResponseWriter, _ *http.Request) {
 	var titles []string
 	infos, err := ioutil.ReadDir(filepath.Join("texts"))
-	fmt.Print("welcome")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
@@ -72,7 +70,6 @@ func welcomeHandler(w http.ResponseWriter, _ *http.Request) {
 			titles = append(titles, info.Name()[:(len(info.Name())-len(".txt"))])
 		}
 	}
-	fmt.Println(titles)
 	if err := templates.ExecuteTemplate(w, "index.gohtml", titles); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
