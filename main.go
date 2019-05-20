@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
 	"io/ioutil"
 	"log"
@@ -14,7 +15,7 @@ var validPath = regexp.MustCompile("^/(edit|save|view)/([a-zA-Z0-9]+)$")
 
 func main() {
 	templates = template.Must(template.ParseGlob("templates/*.gohtml"))
-
+	http.HandleFunc("/", welcomeHandler)
 	http.HandleFunc("/index/", welcomeHandler)
 	http.HandleFunc("/view/", makeHandler(viewHandler))
 	http.HandleFunc("/edit/", makeHandler(editHandler))
@@ -22,7 +23,7 @@ func main() {
 	http.HandleFunc("/new/", newHandler)
 
 	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("assets/"))))
-
+	fmt.Println("server running")
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 

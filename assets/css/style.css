@@ -1,20 +1,24 @@
-body,html{
-    background-color:darkblue;
+body, html {
+    background-color: darkblue;
     color: blueviolet;
     font-family: sans-serif;
-    font-size:18px;
-    text-shadow:  1rem, palevioletred;
-    display:flex;
+    font-size: 18px;
+    display: flex;
     flex-flow: column;
 }
-body > article{
-    border: 0.5rem solid green;
-    margin:2rem;
-    padding:0.5rem;
-    background-color:lightblue;
-    flex:1;
-}
-body > nav{
-    flex:1;
 
+body > article {
+    border: 0.5rem solid green;
+    margin: 2rem;
+    padding: 0.5rem;
+    background-color: lightblue;
+    flex: 1;
+}
+
+body > nav {
+    flex: 1;
+}
+
+.front {
+    color: azure;
 }
